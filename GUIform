@@ -1,0 +1,84 @@
+import java.awt.*;
+import java.awt.event.*;
+public class pranit extends Frame implements ActionListener
+{
+
+    Label lbtitle,lbfn,lbsn,lbtn,lbadd,lbavg;
+    TextField tf1,tf2,tf3,tf4,tf5;
+    Button btresult,btclear,btexit;
+    pranit()
+    {
+        setSize(400,500);
+        setVisible(true);
+        setLayout(new FlowLayout());
+        setBackground(Color.red);
+//labelling
+         lbtitle=new Label("Addition and avg of the numbers");
+         lbfn=new Label("First number");
+         lbsn=new Label("Second number");
+         lbtn=new Label("Third number");
+         lbadd=new Label("Addition");
+         lbavg=new Label("Average");
+//textfield
+         tf1=new TextField(10);
+         tf2=new TextField(10);
+         tf3=new TextField(10);
+         tf4=new TextField(10);
+         tf5=new TextField(10);
+//button
+         btresult=new Button("Result");
+         btclear=new Button("Clear");
+         btexit=new Button("Exit");
+
+         btresult.addActionListener(this);
+         btclear.addActionListener(this);
+         btexit.addActionListener(this);
+         add(lbtitle);
+         add(lbfn);
+         add(tf1);
+         add(lbsn);
+         add(tf2);
+         add(lbtn);
+         add(tf3);
+         add(btresult);
+         add(btclear);
+         add(btexit);
+         add(lbadd);
+         add(tf4);
+         add(lbavg);
+         add(tf5);
+
+    }
+      public void actionPerformed(ActionEvent ae)
+         {
+            if(ae.getSource()==btresult)
+            {
+                double a,b,c,add,avg;
+                a=Double.parseDouble(tf1.getText());
+                b=Double.parseDouble(tf2.getText());
+                c=Double.parseDouble(tf3.getText());
+                add=a+b+c;
+                avg=add/3;
+                tf4.setText(String.valueOf(add));
+                tf5.setText(String.valueOf(avg));
+            }
+           else if(ae.getSource()==btclear)
+           {
+            tf1.setText(null);
+            tf2.setText(null);
+            tf3.setText(null);
+            tf4.setText(null);
+            tf5.setText(null);
+           }
+           else if(ae.getSource()==btexit)
+           {
+            dispose();
+           }
+            
+         }
+         public static void main(String[] args)
+         {
+            pranit obj=new pranit();
+             
+         }
+ }
