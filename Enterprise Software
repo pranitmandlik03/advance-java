@@ -1,0 +1,189 @@
+import java.awt.*;
+import java.awt.event.*;
+public class Enterprice extends Frame implements ActionListener
+{
+    Label lbtitle,lbbillno,lbdate,lbprodname,lbsalesqty,lbrate,lbsalesamount,lbgst,lbdiscount,lbnetbill;
+    TextField tfbillno,tfdate,tfprodname,tfsalesqty,tfrate,tfsalesamount,tfgst,tfdiscount,tfnetbill;
+    Button butresult,butclear,butexit;
+
+    Enterprice()
+    {
+        setSize(3000,4000);
+        setVisible(true);
+        setLayout(new FlowLayout());
+        setBackground(Color.cyan);
+        Font f1=new Font("Arial black",Font.BOLD,32);
+        Font f2=new Font("LOLLI",Font.ITALIC,20);
+        Font f3=new Font("titles",Font.PLAIN,18);
+
+//labelling
+        lbtitle=new Label("Company's products Sale Application:");
+        lbbillno=new Label("Sale's bill no.:");
+        lbdate=new Label("Sale's date:");
+        lbprodname=new Label("Sold products's name:");
+        lbsalesqty=new Label("Sales Quantity:");
+        lbrate=new Label("Rate per Quantity:");
+        lbsalesamount=new Label("Sales amount:");
+        lbgst=new Label("GST:");
+        lbdiscount=new Label("Discount:");
+        lbnetbill=new Label("Net Bill:");
+
+//Textfields
+        tfbillno=new TextField();
+        tfdate=new TextField(10);
+        tfprodname=new TextField(10);
+        tfsalesqty=new TextField(10);
+        tfrate=new TextField(10);
+        tfdiscount=new TextField(10);
+        tfgst=new TextField(10);
+        tfnetbill=new TextField(10);
+        tfsalesamount=new TextField(10);
+
+//Buttons  
+        butresult=new Button("Result");
+        butclear=new Button("Clear");
+        butexit=new Button("Exit");
+        
+        butresult.addActionListener(this);
+        butclear.addActionListener(this);
+        butexit.addActionListener(this);
+
+//Panel creation
+        Panel p1=new Panel(new FlowLayout());
+        Panel p2=new Panel(new GridLayout(5,2,5,4));
+        Panel p3=new Panel(new FlowLayout());
+        Panel p4=new Panel(new GridLayout(2,2,5,4));
+
+        //creating a single panel & inserting above 4 panels into it
+        Panel p5=new Panel(new GridLayout(4,1,5,2));
+        p5.add(p1);
+        p5.add(p2);
+        p5.add(p3);
+        p5.add(p4);
+        add(p5);
+ 
+
+//additind tf,lb,bt        
+        p1.add(lbtitle);
+        p2.add(lbbillno);
+        p2.add(tfbillno);
+        p2.add(lbdate);
+        p2.add(tfdate);
+        p2.add(lbprodname);
+        p2.add(tfprodname);
+        p2.add(lbsalesqty);
+        p2.add(tfsalesqty);
+        p2.add(lbrate);
+        p2.add(tfrate);
+        p3.add(butresult);
+        p3.add(butclear);
+        p3.add(butexit);
+        p4.add(lbsalesamount);
+        p4.add(tfsalesamount);
+        p4.add(lbgst);
+        p4.add(tfgst);
+        p4.add(lbdiscount);
+        p4.add(tfdiscount);
+        p4.add(lbnetbill);
+        p4.add(tfnetbill);
+
+//adding fonts to LABELS AND TEXTFIELDS 
+
+        lbtitle.setFont(f1);
+        lbtitle.setBackground(Color.pink);
+        lbsalesamount.setFont(f3);
+        lbdate.setFont(f3);
+        lbprodname.setFont(f3);
+        lbsalesqty.setFont(f3);
+        lbrate.setFont(f3);
+        lbbillno.setFont(f3);
+        lbsalesamount.setFont(f2);
+        lbgst.setFont(f2);
+        lbdiscount.setFont(f2);
+        lbnetbill.setFont(f2);
+
+        tfnetbill.setFont(f3);
+        tfbillno.setFont(f3);
+        tfdate.setFont(f3);
+        tfdiscount.setFont(f3);
+        tfgst.setFont(f3);
+        tfnetbill.setFont(f3);
+        tfprodname.setFont(f3);
+        tfrate.setFont(f3);
+        tfsalesamount.setFont(f3);
+        tfsalesqty.setFont(f3);
+     
+        butresult.setSize(60,20);
+        butclear.setSize(60,20);
+        butexit.setSize(60,20);
+        
+//uneditable TextFields
+        tfnetbill.setEditable(false);
+        tfdiscount.setEditable(false);
+        tfsalesamount.setEditable(false);
+        tfgst.setEditable(false);
+    }
+
+    public void actionPerformed(ActionEvent ae)
+    {
+        if(ae.getSource()==butresult)
+        {
+                double salesamount,saleqty,rateqty,gst,netbill,regdiscount,applicablediscount,special;
+
+                saleqty=Double.parseDouble(tfsalesqty.getText());
+                rateqty=Double.parseDouble(tfrate.getText());
+                salesamount=rateqty*saleqty;
+                tfsalesamount.setText(String.valueOf(salesamount));
+                
+                if(salesamount<2000)
+                gst=6*salesamount/100;
+                else if(salesamount>=2000 && salesamount<=5000)
+                gst=12*salesamount/100;
+                else if(salesamount>5000 && salesamount<=15000)
+                gst=15*salesamount/100;
+                else if(salesamount>15000 && salesamount<=40000)
+                gst=18*salesamount/100;
+                else 
+                gst=20*salesamount/100;
+
+                tfgst.setText(String.valueOf(gst));
+
+                regdiscount=5*salesamount/100;
+                if(salesamount>4000)
+                special=7*salesamount/100;
+                else
+                special=0;
+
+                applicablediscount=regdiscount+special;
+                tfdiscount.setText(String.valueOf(applicablediscount));
+
+                netbill=salesamount+gst-applicablediscount;
+                tfnetbill.setText(String.valueOf(netbill));
+        }      
+        else if(ae.getSource()==butclear)
+        {
+                tfbillno.setText(null);
+                tfdate.setText(null);
+                tfdiscount.setText(null);
+                tfgst.setText(null);
+                tfprodname.setText(null);
+                tfrate.setText(null);
+                tfsalesamount.setText(null);
+                tfsalesqty.setText(null);
+                tfrate.setText(null);
+                tfnetbill.setText(null);
+        }
+        else if(ae.getSource()==butexit)
+        {
+                dispose();
+        }
+    }
+    public static void main(String args[])
+    {
+        Enterprice obj=new Enterprice();
+    }
+
+}
+
+
+
